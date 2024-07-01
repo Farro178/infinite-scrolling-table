@@ -1,30 +1,38 @@
-# React + TypeScript + Vite
+# Infinite-Scrolling-Table
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+This project is a prototype React application that demonstrates an infinite scroll list with a mirrored view feature. It displays mock data in an infinite list format. The mirrored view functionality allows users to click on a mirror icon in the top right corner to open a duplicate list that syncs with the scrolling of the original list. This means that scrolling in one list will simultaneously scroll the other, providing a synchronized viewing experience.
 
-Currently, two official plugins are available:
+## Installation
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+To get started with this project, clone the repository and navigate into the project directory:
 
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
+```bash
+git clone https://github.com/Farro178/infinite-scrolling-table.git
+cd infinite-scrolling-table
 ```
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+Install dependencies using pnpm:
+
+```bash
+pnpm install
+```
+
+## Usage
+
+To start the development server:
+
+```bash
+pnpm run dev
+```
+
+The application will open in your default browser at http://localhost:5173.
+
+## Testing
+
+To run tests using Vite and Vitest:
+
+```bash
+pnpm run test
+```
+
+This command will execute the test suite and provide feedback on test results.

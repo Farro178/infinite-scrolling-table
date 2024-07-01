@@ -9,13 +9,16 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import { useEffect, useRef } from "react";
 import classes from "./styles.module.scss";
 
+const ESTIMATED_SIZE = 30;
+
 interface TableProps<T> {
+  id: string;
   data: T[];
   columns: ColumnDef<T>[];
   onScroll: (containerRefElement?: HTMLDivElement | null | undefined) => void;
 }
 
-function Table<T>({ data, columns, onScroll }: TableProps<T>) {
+function Table<T>({ id, data, columns, onScroll }: TableProps<T>) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const table = useReactTable({
@@ -28,7 +31,7 @@ function Table<T>({ data, columns, onScroll }: TableProps<T>) {
 
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
-    estimateSize: () => 30,
+    estimateSize: () => ESTIMATED_SIZE,
     getScrollElement: () => containerRef.current,
   });
 
@@ -38,14 +41,19 @@ function Table<T>({ data, columns, onScroll }: TableProps<T>) {
 
   return (
     <div
+      id={`${id}-table`}
       className={classes["table__container"]}
       onScroll={(e) => onScroll(e.target as HTMLDivElement)}
       ref={containerRef}
     >
-      <table style={{ display: "grid" }}>
+      <table role="table">
         <thead className={classes["table__header"]}>
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id} className={classes["table__row"]}>
+            <tr
+              key={headerGroup.id}
+              className={classes["table__row"]}
+              role="row"
+            >
               {headerGroup.headers.map((header) => {
                 return (
                   <th
@@ -55,6 +63,8 @@ function Table<T>({ data, columns, onScroll }: TableProps<T>) {
                       background: "white",
                       width: header.getSize(),
                     }}
+                    scope="col"
+                    role="columnheader"
                   >
                     <div>
                       {flexRender(
@@ -71,8 +81,8 @@ function Table<T>({ data, columns, onScroll }: TableProps<T>) {
         <tbody
           style={{
             display: "grid",
-            height: `${rowVirtualizer.getTotalSize()}px`, //tells scrollbar how big the table is
-            position: "relative", //needed for absolute positioning of rows
+            height: `${rowVirtualizer.getTotalSize()}px`,
+            position: "relative",
           }}
         >
           {rowVirtualizer.getVirtualItems().map((virtualRow) => {
@@ -80,13 +90,14 @@ function Table<T>({ data, columns, onScroll }: TableProps<T>) {
             return (
               <tr
                 className={classes["table__row"]}
-                data-index={virtualRow.index} //needed for dynamic row height measurement
-                ref={(node) => rowVirtualizer.measureElement(node)} //measure dynamic row height
+                data-index={virtualRow.index}
+                ref={(node) => rowVirtualizer.measureElement(node)}
                 key={row.id}
                 style={{
                   position: "absolute",
-                  transform: `translateY(${virtualRow.start}px)`, //this should always be a `style` as it changes on scroll
+                  transform: `translateY(${virtualRow.start}px)`,
                 }}
+                role="row"
               >
                 {row.getVisibleCells().map((cell) => {
                   return (
@@ -96,6 +107,7 @@ function Table<T>({ data, columns, onScroll }: TableProps<T>) {
                       style={{
                         width: cell.column.getSize(),
                       }}
+                      role="cell"
                     >
                       {flexRender(
                         cell.column.columnDef.cell,

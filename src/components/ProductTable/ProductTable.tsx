@@ -6,7 +6,14 @@ import { Product } from "../../utils/types/Product";
 import Table from "../Table/Table";
 import classes from "./styles.module.scss";
 
-function ProductTable() {
+interface ProductTableProps {
+  id: string;
+  handleScroll: (
+    containerRefElement?: HTMLDivElement | null | undefined
+  ) => void;
+}
+
+function ProductTable({ id, handleScroll }: ProductTableProps) {
   const columns = useMemo<ColumnDef<Product>[]>(
     () => [
       {
@@ -26,7 +33,7 @@ function ProductTable() {
     []
   );
 
-  const { data, fetchNextPage, isFetching, isLoading } =
+  const { data, fetchNextPage, isFetching, isLoading, isError } =
     useInfiniteProductQuery();
 
   const flatData = useMemo(
@@ -51,11 +58,15 @@ function ProductTable() {
         }
       }
     },
-    [fetchNextPage, isFetching, totalFetched, totalDBRowCount]
+    [isFetching, totalFetched, totalDBRowCount, fetchNextPage]
   );
 
   if (isLoading) {
-    return <div className={classes["product-table-loader"]}>Loading</div>;
+    return <div className={classes["product-table__loader"]}>Loading</div>;
+  }
+
+  if (isError) {
+    return <div className={classes["product-table__error"]}>Error</div>;
   }
 
   return (
@@ -66,9 +77,13 @@ function ProductTable() {
       layout
     >
       <Table
+        id={id}
         data={flatData}
         columns={columns}
-        onScroll={fetchMoreOnBottomReached}
+        onScroll={(e) => {
+          fetchMoreOnBottomReached(e);
+          handleScroll(e);
+        }}
       />
     </motion.div>
   );

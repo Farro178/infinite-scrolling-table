@@ -3,30 +3,15 @@
   align-items: center;
   justify-content: space-between;
   padding: 16px;
-}
 
-.topbar__link {
-  color: black;
-  flex: 1;
-  display: flex;
-  justify-content: center;
-}
-
-.topbar__button {
-  position: absolute;
-  right: 16px;
-  height: 32px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background: white;
-
-  &:hover,
-  &:focus {
-    background-color: #f0f0f0;
+  &__link {
+    color: black;
+    flex: 1;
+    display: flex;
+    justify-content: center;
   }
 
-  &--active {
+  &__button {
     position: absolute;
     right: 16px;
     height: 32px;
@@ -34,9 +19,23 @@
     align-items: center;
     justify-content: center;
     background: white;
-    background-color: #202020;
-    svg {
-      fill: white;
+
+    &:hover,
+    &:focus {
+      background-color: #f0f0f0;
+    }
+
+    &--active {
+      background-color: #202020;
+
+      svg {
+        fill: white;
+      }
+
+      &:hover,
+      &:focus {
+        background-color: #202020;
+      }
     }
   }
 }

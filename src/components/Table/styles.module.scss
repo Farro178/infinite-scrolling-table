@@ -1,0 +1,32 @@
+@import "../../assets/styles/_mixins.scss";
+
+.table__container {
+  border: solid $border;
+  border-radius: 8px;
+  padding: 0 12px 12px 12px;
+  overflow: auto;
+  position: relative;
+  height: calc(100vh - 127px);
+}
+
+.table__header {
+  display: grid;
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+
+.table__row {
+  border-bottom: solid $border;
+  display: flex;
+  width: 100%;
+  &:hover,
+  &:focus {
+    background-color: $primary-color-hover;
+  }
+}
+
+.table__cell {
+  display: flex;
+  padding: 12px;
+}

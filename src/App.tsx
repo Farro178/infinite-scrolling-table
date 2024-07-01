@@ -1,35 +1,27 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
-import "./App.css";
-import CustomList from "./components/CustomList/CustomList";
-import { useInfiniteProductQuery } from "./utils/hooks/useInfiniteProductQuery";
+import Footer from "./components/Footer/Footer";
+import ProductTable from "./components/ProductTable/ProductTable";
+import Navbar from "./components/Topbar/Topbar";
+import classes from "./styles.module.scss";
 
 function App() {
-  const infiniteScroll = useInfiniteProductQuery();
+  const [isTableMirrored, setIsTableMirrored] = useState(false);
 
   return (
-    <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
+    <div className={classes.app}>
+      <div className={classes["app"]}>
+        <Navbar
+          isTableMirrored={isTableMirrored}
+          setIsTableMirrored={setIsTableMirrored}
+        />
+        <div className={classes["product__table__group"]}>
+          <ProductTable />
+
+          {isTableMirrored ? <ProductTable /> : null}
+        </div>
+        <Footer />
       </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => infiniteScroll.fetchNextPage()}>count is</button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-      <CustomList />
-    </>
+    </div>
   );
 }
 

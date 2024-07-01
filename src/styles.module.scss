@@ -1,28 +1,70 @@
 @import "./assets/styles/mixins";
+
+:root {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  background-color: #ffffff;
+  color: black;
+  max-width: 1280px;
+  text-align: center;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  font-weight: 500;
+  color: $primary-color;
+  text-decoration: inherit;
+
+  &:hover,
+  &:focus {
+    text-decoration: underline;
+  }
+}
+
 body {
-  margin: 0px;
-  padding: 0px;
-  @include primaryFont();
-}
-code {
-  border: 1px solid #ccc;
-  padding: 2px 4px;
-  background: #eee;
-  border-radius: 3px;
-}
-.app {
-  background: rgb(2, 0, 36);
-  background: linear-gradient(
-    90deg,
-    rgba(2, 0, 36, 1) 0%,
-    rgba(255, 175, 189, 1) 0%,
-    rgba(255, 195, 160, 1) 100%,
-    rgba(0, 212, 255, 1) 100%
-  );
-  margin: 0px;
-  padding: 30px;
+  margin: 0;
+  place-items: center;
+  min-width: 320px;
+  width: 100vw;
   min-height: 100vh;
 }
+
+h1 {
+  font-size: 3.2em;
+  line-height: 1.1;
+}
+
+button {
+  border-radius: 8px;
+  border: 1px solid transparent;
+  padding: 0.6em 1.2em;
+  font-size: 1em;
+  font-weight: 500;
+  font-family: inherit;
+  background-color: #1a1a1a;
+  cursor: pointer;
+  transition: border-color 0.25s;
+}
+button:hover {
+  border-color: #646cff;
+}
+button:focus,
+button:focus-visible {
+  outline: 4px auto -webkit-focus-ring-color;
+}
+
+.app {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
 .heading {
   color: $primary-color;
   font-size: $font-size * 2;
@@ -33,4 +75,9 @@ code {
 .subHeading {
   @include primaryFont();
   text-align: center;
+}
+
+.product__table__group {
+  display: flex;
+  gap: 16px;
 }

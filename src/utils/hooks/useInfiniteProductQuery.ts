@@ -1,5 +1,5 @@
-import { ProductResponse, fetchProducts } from "../fetchProducts";
 import { useInfiniteQuery } from "react-query";
+import { ProductResponse, fetchProducts } from "../fetchProducts";
 
 export const useInfiniteProductQuery = () => {
   const infiniteQueryResponse = useInfiniteQuery<ProductResponse>({

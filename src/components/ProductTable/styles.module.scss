@@ -1,3 +1,10 @@
-.product-table-loader {
-  line-height: calc(100vh - 112px);
+.product-table {
+  &__loader {
+    line-height: calc(100vh - 112px);
+  }
+
+  &__error {
+    line-height: calc(100vh - 112px);
+    color: red;
+  }
 }

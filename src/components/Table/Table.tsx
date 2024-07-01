@@ -9,6 +9,8 @@ import { useVirtualizer } from "@tanstack/react-virtual";
 import { useEffect, useRef } from "react";
 import classes from "./styles.module.scss";
 
+const ESTIMATED_SIZE = 30;
+
 interface TableProps<T> {
   id: string;
   data: T[];
@@ -29,7 +31,7 @@ function Table<T>({ id, data, columns, onScroll }: TableProps<T>) {
 
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
-    estimateSize: () => 30,
+    estimateSize: () => ESTIMATED_SIZE,
     getScrollElement: () => containerRef.current,
   });
 
@@ -44,10 +46,14 @@ function Table<T>({ id, data, columns, onScroll }: TableProps<T>) {
       onScroll={(e) => onScroll(e.target as HTMLDivElement)}
       ref={containerRef}
     >
-      <table style={{ display: "grid" }}>
+      <table role="table">
         <thead className={classes["table__header"]}>
           {table.getHeaderGroups().map((headerGroup) => (
-            <tr key={headerGroup.id} className={classes["table__row"]}>
+            <tr
+              key={headerGroup.id}
+              className={classes["table__row"]}
+              role="row"
+            >
               {headerGroup.headers.map((header) => {
                 return (
                   <th
@@ -57,6 +63,8 @@ function Table<T>({ id, data, columns, onScroll }: TableProps<T>) {
                       background: "white",
                       width: header.getSize(),
                     }}
+                    scope="col"
+                    role="columnheader"
                   >
                     <div>
                       {flexRender(
@@ -89,6 +97,7 @@ function Table<T>({ id, data, columns, onScroll }: TableProps<T>) {
                   position: "absolute",
                   transform: `translateY(${virtualRow.start}px)`,
                 }}
+                role="row"
               >
                 {row.getVisibleCells().map((cell) => {
                   return (
@@ -98,6 +107,7 @@ function Table<T>({ id, data, columns, onScroll }: TableProps<T>) {
                       style={{
                         width: cell.column.getSize(),
                       }}
+                      role="cell"
                     >
                       {flexRender(
                         cell.column.columnDef.cell,

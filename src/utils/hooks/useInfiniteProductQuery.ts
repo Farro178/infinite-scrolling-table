@@ -16,5 +16,6 @@ export const useInfiniteProductQuery = () => {
     fetchNextPage: infiniteQueryResponse.fetchNextPage,
     isFetching: infiniteQueryResponse.isFetching,
     isLoading: infiniteQueryResponse.isLoading,
+    isError: infiniteQueryResponse.isError,
   };
 };

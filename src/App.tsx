@@ -59,7 +59,7 @@ function App() {
           isTableMirrored={isTableMirrored}
           setIsTableMirrored={setIsTableMirrored}
         />
-        <div className={classes["product__table__group"]}>
+        <div className={classes["app__product-table-group"]}>
           <ProductTable
             id="primary-product"
             handleScroll={handlePrimaryElementScroll}

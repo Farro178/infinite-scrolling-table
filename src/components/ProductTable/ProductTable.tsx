@@ -33,7 +33,7 @@ function ProductTable({ id, handleScroll }: ProductTableProps) {
     []
   );
 
-  const { data, fetchNextPage, isFetching, isLoading } =
+  const { data, fetchNextPage, isFetching, isLoading, isError } =
     useInfiniteProductQuery();
 
   const flatData = useMemo(
@@ -62,7 +62,11 @@ function ProductTable({ id, handleScroll }: ProductTableProps) {
   );
 
   if (isLoading) {
-    return <div className={classes["product-table-loader"]}>Loading</div>;
+    return <div className={classes["product-table__loader"]}>Loading</div>;
+  }
+
+  if (isError) {
+    return <div className={classes["product-table__error"]}>Error</div>;
   }
 
   return (

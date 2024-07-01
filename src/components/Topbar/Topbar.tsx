@@ -15,7 +15,7 @@ function Topbar({ isTableMirrored, setIsTableMirrored }: TopbarProps) {
       <button
         className={
           isTableMirrored
-            ? classes["topbar__button--active"]
+            ? `${classes["topbar__button"]} ${classes["topbar__button--active"]}`
             : classes["topbar__button"]
         }
         aria-label="Toggle mirrored table"

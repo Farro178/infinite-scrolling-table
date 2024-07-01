@@ -6,6 +6,7 @@ import classes from "./styles.module.scss";
 
 function App() {
   const [isTableMirrored, setIsTableMirrored] = useState(false);
+  const [tableScrollY, setTableScrollY] = useState(0);
 
   return (
     <div className={classes.app}>
@@ -15,9 +16,17 @@ function App() {
           setIsTableMirrored={setIsTableMirrored}
         />
         <div className={classes["product__table__group"]}>
-          <ProductTable />
+          <ProductTable
+            tableScrollY={tableScrollY}
+            setTableScrollY={setTableScrollY}
+          />
 
-          {isTableMirrored ? <ProductTable /> : null}
+          {isTableMirrored ? (
+            <ProductTable
+              tableScrollY={tableScrollY}
+              setTableScrollY={setTableScrollY}
+            />
+          ) : null}
         </div>
         <Footer />
       </div>

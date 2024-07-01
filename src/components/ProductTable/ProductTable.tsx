@@ -6,7 +6,12 @@ import { Product } from "../../utils/types/Product";
 import Table from "../Table/Table";
 import classes from "./styles.module.scss";
 
-function ProductTable() {
+interface ProductTableProps {
+  tableScrollY: number;
+  setTableScrollY: (value: number) => void;
+}
+
+function ProductTable({ tableScrollY, setTableScrollY }: ProductTableProps) {
   const columns = useMemo<ColumnDef<Product>[]>(
     () => [
       {
@@ -39,8 +44,25 @@ function ProductTable() {
 
   const fetchMoreOnBottomReached = useCallback(
     (containerRefElement?: HTMLDivElement | null) => {
+      let lastKnownScrollPosition = 0;
+      let deltaY = 0;
+
       if (containerRefElement) {
         const { scrollHeight, scrollTop, clientHeight } = containerRefElement;
+
+        let ticking = false;
+        if (!ticking) {
+          // event throttling
+          window.requestAnimationFrame(function () {
+            deltaY = containerRefElement.scrollTop - lastKnownScrollPosition;
+            lastKnownScrollPosition = containerRefElement.scrollTop;
+            setTableScrollY(deltaY);
+
+            containerRefElement.scrollTop = tableScrollY;
+            ticking = false;
+          });
+          ticking = true;
+        }
 
         if (
           scrollHeight - scrollTop - clientHeight < 500 &&
@@ -51,7 +73,14 @@ function ProductTable() {
         }
       }
     },
-    [fetchNextPage, isFetching, totalFetched, totalDBRowCount]
+    [
+      isFetching,
+      totalFetched,
+      totalDBRowCount,
+      setTableScrollY,
+      tableScrollY,
+      fetchNextPage,
+    ]
   );
 
   if (isLoading) {

@@ -71,8 +71,8 @@ function Table<T>({ data, columns, onScroll }: TableProps<T>) {
         <tbody
           style={{
             display: "grid",
-            height: `${rowVirtualizer.getTotalSize()}px`, //tells scrollbar how big the table is
-            position: "relative", //needed for absolute positioning of rows
+            height: `${rowVirtualizer.getTotalSize()}px`,
+            position: "relative",
           }}
         >
           {rowVirtualizer.getVirtualItems().map((virtualRow) => {
@@ -80,12 +80,12 @@ function Table<T>({ data, columns, onScroll }: TableProps<T>) {
             return (
               <tr
                 className={classes["table__row"]}
-                data-index={virtualRow.index} //needed for dynamic row height measurement
-                ref={(node) => rowVirtualizer.measureElement(node)} //measure dynamic row height
+                data-index={virtualRow.index}
+                ref={(node) => rowVirtualizer.measureElement(node)}
                 key={row.id}
                 style={{
                   position: "absolute",
-                  transform: `translateY(${virtualRow.start}px)`, //this should always be a `style` as it changes on scroll
+                  transform: `translateY(${virtualRow.start}px)`,
                 }}
               >
                 {row.getVisibleCells().map((cell) => {

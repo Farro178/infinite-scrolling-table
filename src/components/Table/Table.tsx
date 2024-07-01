@@ -10,12 +10,13 @@ import { useEffect, useRef } from "react";
 import classes from "./styles.module.scss";
 
 interface TableProps<T> {
+  id: string;
   data: T[];
   columns: ColumnDef<T>[];
   onScroll: (containerRefElement?: HTMLDivElement | null | undefined) => void;
 }
 
-function Table<T>({ data, columns, onScroll }: TableProps<T>) {
+function Table<T>({ id, data, columns, onScroll }: TableProps<T>) {
   const containerRef = useRef<HTMLDivElement>(null);
 
   const table = useReactTable({
@@ -38,6 +39,7 @@ function Table<T>({ data, columns, onScroll }: TableProps<T>) {
 
   return (
     <div
+      id={`${id}-table`}
       className={classes["table__container"]}
       onScroll={(e) => onScroll(e.target as HTMLDivElement)}
       ref={containerRef}

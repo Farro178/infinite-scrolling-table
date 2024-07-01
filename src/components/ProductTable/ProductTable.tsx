@@ -7,11 +7,13 @@ import Table from "../Table/Table";
 import classes from "./styles.module.scss";
 
 interface ProductTableProps {
-  tableScrollY: number;
-  setTableScrollY: (value: number) => void;
+  id: string;
+  handleScroll: (
+    containerRefElement?: HTMLDivElement | null | undefined
+  ) => void;
 }
 
-function ProductTable({ tableScrollY, setTableScrollY }: ProductTableProps) {
+function ProductTable({ id, handleScroll }: ProductTableProps) {
   const columns = useMemo<ColumnDef<Product>[]>(
     () => [
       {
@@ -44,25 +46,8 @@ function ProductTable({ tableScrollY, setTableScrollY }: ProductTableProps) {
 
   const fetchMoreOnBottomReached = useCallback(
     (containerRefElement?: HTMLDivElement | null) => {
-      let lastKnownScrollPosition = 0;
-      let deltaY = 0;
-
       if (containerRefElement) {
         const { scrollHeight, scrollTop, clientHeight } = containerRefElement;
-
-        let ticking = false;
-        if (!ticking) {
-          // event throttling
-          window.requestAnimationFrame(function () {
-            deltaY = containerRefElement.scrollTop - lastKnownScrollPosition;
-            lastKnownScrollPosition = containerRefElement.scrollTop;
-            setTableScrollY(deltaY);
-
-            containerRefElement.scrollTop = tableScrollY;
-            ticking = false;
-          });
-          ticking = true;
-        }
 
         if (
           scrollHeight - scrollTop - clientHeight < 500 &&
@@ -73,14 +58,7 @@ function ProductTable({ tableScrollY, setTableScrollY }: ProductTableProps) {
         }
       }
     },
-    [
-      isFetching,
-      totalFetched,
-      totalDBRowCount,
-      setTableScrollY,
-      tableScrollY,
-      fetchNextPage,
-    ]
+    [isFetching, totalFetched, totalDBRowCount, fetchNextPage]
   );
 
   if (isLoading) {
@@ -95,9 +73,13 @@ function ProductTable({ tableScrollY, setTableScrollY }: ProductTableProps) {
       layout
     >
       <Table
+        id={id}
         data={flatData}
         columns={columns}
-        onScroll={fetchMoreOnBottomReached}
+        onScroll={(e) => {
+          fetchMoreOnBottomReached(e);
+          handleScroll(e);
+        }}
       />
     </motion.div>
   );

@@ -28,14 +28,8 @@ function Table<T>({ data, columns, onScroll }: TableProps<T>) {
 
   const rowVirtualizer = useVirtualizer({
     count: rows.length,
-    estimateSize: () => 33,
+    estimateSize: () => 30,
     getScrollElement: () => containerRef.current,
-    measureElement:
-      typeof window !== "undefined" &&
-      navigator.userAgent.indexOf("Firefox") === -1
-        ? (element) => element?.getBoundingClientRect().height
-        : undefined,
-    overscan: 5,
   });
 
   useEffect(() => {

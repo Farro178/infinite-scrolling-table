@@ -12,6 +12,7 @@ function ProductTable() {
       {
         accessorKey: "id",
         header: "ID",
+        size: 60,
       },
       {
         accessorKey: "name",
@@ -36,12 +37,11 @@ function ProductTable() {
   const totalDBRowCount = data?.pages?.[0]?.pagination?.pageTotal ?? 0;
   const totalFetched = flatData.length;
 
-  //called on scroll and possibly on mount to fetch more data as the user scrolls and reaches bottom of table
   const fetchMoreOnBottomReached = useCallback(
     (containerRefElement?: HTMLDivElement | null) => {
       if (containerRefElement) {
         const { scrollHeight, scrollTop, clientHeight } = containerRefElement;
-        //once the user has scrolled within 500px of the bottom of the table, fetch more data if we can
+
         if (
           scrollHeight - scrollTop - clientHeight < 500 &&
           !isFetching &&

@@ -29,8 +29,7 @@ a {
 body {
   margin: 0;
   place-items: center;
-  min-width: 320px;
-  width: 100vw;
+  min-width: 100vw;
   min-height: 100vh;
 }
 
@@ -59,10 +58,12 @@ button:focus-visible {
 }
 
 .app {
-  min-height: 100vh;
+  height: 100%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-y: hidden;
 }
 
 .heading {
@@ -78,6 +79,9 @@ button:focus-visible {
 }
 
 .product__table__group {
+  width: 100%;
+  overflow-x: auto;
+  justify-content: space-around;
   display: flex;
   gap: 16px;
 }

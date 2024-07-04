@@ -1,7 +1,7 @@
 import { useState } from "react";
 import Footer from "./components/Footer/Footer";
 import ProductTable from "./components/ProductTable/ProductTable";
-import Navbar from "./components/Topbar/Topbar";
+import Topbar from "./components/Topbar/Topbar";
 import classes from "./styles.module.scss";
 
 function App() {
@@ -55,7 +55,7 @@ function App() {
   return (
     <div className={classes.app}>
       <div className={classes["app"]}>
-        <Navbar
+        <Topbar
           isTableMirrored={isTableMirrored}
           setIsTableMirrored={setIsTableMirrored}
         />

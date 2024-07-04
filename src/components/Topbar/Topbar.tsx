@@ -8,7 +8,7 @@ interface TopbarProps {
 
 function Topbar({ isTableMirrored, setIsTableMirrored }: TopbarProps) {
   return (
-    <div className={classes["topbar"]}>
+    <header className={classes["topbar"]}>
       <div className={classes["topbar__link"]}>
         <a href="/">Infinity Scroll</a>
       </div>
@@ -23,7 +23,7 @@ function Topbar({ isTableMirrored, setIsTableMirrored }: TopbarProps) {
       >
         <GiMirrorMirror />
       </button>
-    </div>
+    </header>
   );
 }
 
